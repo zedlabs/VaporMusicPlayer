@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1077589205891",
+    "project_id": "vapormusicplayer-54aa2",
+    "storage_bucket": "vapormusicplayer-54aa2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077589205891:android:61c6255332a7d1fd524cb6",
+        "android_client_info": {
+          "package_name": "ml.zedlabs.vapormusicplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077589205891-9d0q96d3p8ciqtsj269ollpdvg6r7rvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW_Jidf9zvYqchQ9_Zkft1_YJMDAXGO9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077589205891-9d0q96d3p8ciqtsj269ollpdvg6r7rvl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
