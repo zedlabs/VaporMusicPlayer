@@ -12,10 +12,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
+import ml.zedlabs.vapormusicplayer.data.remote.MusicDatabase
 
 @InstallIn(ServiceComponent::class)
 @Module
 object ServiceModule {
+
+    @ServiceScoped
+    @Provides
+    fun providesMusicDatabase() = MusicDatabase()
 
     @ServiceScoped
     @Provides
