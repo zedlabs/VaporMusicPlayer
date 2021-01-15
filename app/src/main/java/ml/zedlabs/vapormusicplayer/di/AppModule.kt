@@ -10,11 +10,18 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ml.zedlabs.vapormusicplayer.R
+import ml.zedlabs.vapormusicplayer.exoplayer.MusicServiceConnection
 import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideMusicServiceConnection(
+            @ApplicationContext context: Context
+    ) = MusicServiceConnection(context)
 
     @Singleton
     @Provides

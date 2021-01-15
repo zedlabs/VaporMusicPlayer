@@ -19,6 +19,7 @@ import ml.zedlabs.vapormusicplayer.exoplayer.callbacks.MusicPlaybackPreparer
 import ml.zedlabs.vapormusicplayer.exoplayer.callbacks.MusicPlayerEventListener
 import ml.zedlabs.vapormusicplayer.exoplayer.callbacks.MusicPlayerNotificationListener
 import ml.zedlabs.vapormusicplayer.util.Constants.MEDIA_ROOT_ID
+import ml.zedlabs.vapormusicplayer.util.Constants.NETWORK_ERROR
 import javax.inject.Inject
 
 private const val SERVICE_TAG  = "MusicService"
@@ -150,6 +151,7 @@ class MusicService: MediaBrowserServiceCompat() {
                         }
                     }
                     else{
+                        mediaSession.sendSessionEvent(NETWORK_ERROR, null)
                         result.sendResult(null)
                     }
                 }
