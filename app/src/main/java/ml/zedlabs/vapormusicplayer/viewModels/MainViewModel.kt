@@ -1,4 +1,4 @@
-package ml.zedlabs.vapormusicplayer
+package ml.zedlabs.vapormusicplayer.viewModels
 
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID

@@ -2,21 +2,24 @@ package ml.zedlabs.vapormusicplayer.ui
 
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
+import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.setContent
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.RequestManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import ml.zedlabs.vapormusicplayer.MainViewModel
+import ml.zedlabs.vapormusicplayer.viewModels.MainViewModel
 import ml.zedlabs.vapormusicplayer.R
 import ml.zedlabs.vapormusicplayer.adapters.SwipeSongAdapter
 import ml.zedlabs.vapormusicplayer.data.entities.Song
 import ml.zedlabs.vapormusicplayer.exoplayer.isPlaying
 import ml.zedlabs.vapormusicplayer.exoplayer.toSong
-import ml.zedlabs.vapormusicplayer.util.Status
 import ml.zedlabs.vapormusicplayer.util.Status.*
 import javax.inject.Inject
 
@@ -60,6 +63,37 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.playOrToggleSong(it, true)
             }
         }
+
+        val navHostFragment = findViewById<View>(R.id.navHostFragment)
+
+        swipeSongAdapter.setItemClickListener {
+            navHostFragment.findNavController().navigate(
+                R.id.globalActionToSongFragment
+            )
+        }
+
+        navHostFragment.findNavController().addOnDestinationChangedListener { _, destination, _ ->
+            val uvCurSongImage = findViewById<ImageView>(R.id.ivCurSongImage)
+            val vpSong = findViewById<ViewPager2>(R.id.vpSong)
+            val ivPlayPause = findViewById<ImageView>(R.id.ivPlayPause)
+            when(destination.id) {
+                R.id.songFragment -> hideBottomBar(uvCurSongImage, vpSong, ivPlayPause)
+                R.id.homeFragment -> showBottomBar(uvCurSongImage, vpSong, ivPlayPause)
+                else -> showBottomBar(uvCurSongImage, vpSong, ivPlayPause)
+            }
+        }
+    }
+
+    private fun hideBottomBar(uvCurSongImage: ImageView, vpSong: ViewPager2, ivPlayPause: ImageView) {
+        uvCurSongImage.isVisible = false
+        vpSong.isVisible = false
+        ivPlayPause.isVisible = false
+    }
+
+    private fun showBottomBar(uvCurSongImage: ImageView, vpSong: ViewPager2, ivPlayPause: ImageView) {
+        uvCurSongImage.isVisible = true
+        vpSong.isVisible = true
+        ivPlayPause.isVisible = true
     }
 
     private fun switchViewPagerToCurrentSong(song: Song) {

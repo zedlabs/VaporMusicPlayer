@@ -7,4 +7,11 @@
         android:id="@+id/homeFragment"
         android:name="ml.zedlabs.vapormusicplayer.ui.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="ml.zedlabs.vapormusicplayer.ui.SongFragment"
+        android:label="SongFragment" />
+
+    <action android:id="@+id/globalActionToSongFragment"
+        app:destination="@id/songFragment" />
 </navigation>
