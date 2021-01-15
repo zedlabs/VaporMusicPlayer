@@ -14,37 +14,12 @@ import ml.zedlabs.vapormusicplayer.R
 import ml.zedlabs.vapormusicplayer.data.entities.Song
 import javax.inject.Inject
 
+
 class SongAdapter @Inject constructor(
-        private val glide: RequestManager
-) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
+    private val glide: RequestManager
+) : BaseSongAdapter(R.layout.list_item) {
 
-    class SongViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-    private val diffCallback = object : DiffUtil.ItemCallback<Song>() {
-        override fun areItemsTheSame(oldItem: Song, newItem: Song): Boolean {
-            return oldItem.mediaid == newItem.mediaid
-        }
-
-        override fun areContentsTheSame(oldItem: Song, newItem: Song): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-
-    private val differ = AsyncListDiffer(this, diffCallback)
-
-    var songs: List<Song>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
-        return SongViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                        R.layout.list_item,
-                        parent,
-                        false
-                )
-        )
-    }
+    override val differ = AsyncListDiffer(this, diffCallback)
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
@@ -52,10 +27,9 @@ class SongAdapter @Inject constructor(
             val tv1 = this.findViewById<TextView>(R.id.tvPrimary)
             val tv2 = this.findViewById<TextView>(R.id.tvSecondary)
             val ivItemImage = this.findViewById<ImageView>(R.id.ivItemImage)
-            Log.e("adapter", "adapter -> onBindViewHolder: ${song.songUrl}")
             tv1.text = song.title
             tv2.text = song.artist
-            glide.load(song.songUrl).into(ivItemImage)
+            glide.load(song.imageUrl).into(ivItemImage)
 
             setOnClickListener {
                 onItemClickListener?.let { click ->
@@ -65,13 +39,4 @@ class SongAdapter @Inject constructor(
         }
     }
 
-    private var onItemClickListener: ((Song) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (Song) -> Unit) {
-        onItemClickListener = listener
-    }
-
-    override fun getItemCount(): Int {
-        return songs.size
-    }
 }

@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ml.zedlabs.vapormusicplayer.R
+import ml.zedlabs.vapormusicplayer.adapters.SwipeSongAdapter
 import ml.zedlabs.vapormusicplayer.exoplayer.MusicServiceConnection
 import javax.inject.Singleton
 
@@ -22,6 +23,10 @@ object AppModule {
     fun provideMusicServiceConnection(
             @ApplicationContext context: Context
     ) = MusicServiceConnection(context)
+
+    @Singleton
+    @Provides
+    fun providesSwipeSongAdapter() = SwipeSongAdapter()
 
     @Singleton
     @Provides
